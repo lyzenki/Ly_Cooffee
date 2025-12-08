@@ -1,13 +1,20 @@
-### Spring Boot ### 
-!**/src/main/**/target/ 
-!**/src/test/**/target/ 
- 
-### Gradle ### 
-.gradle/ 
-!gradle/wrapper/gradle-wrapper.jar 
- 
-### Eclipse ### 
-.settings/ 
-.classpath 
-.project 
-bin/ 
+### Spring Boot ###
+/target/
+/build/
+
+### Gradle ###
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+### Eclipse ###
+.settings/
+.classpath
+.project
+bin/
+
+### Java ###
+*.class
+*.log
+*.jar
+*.war
+*.ear

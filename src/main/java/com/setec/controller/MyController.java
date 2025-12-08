@@ -19,11 +19,11 @@ public class MyController {
 	public String home(Model mod) {
 		
 		Booked booked=new Booked(
-				1,"Bo Polin",
+				1,"Hem SengHongly",
 				"087348554",
-				"bopolin3@gmail.com",
-				"11/25/2025",
-				"5:20 PM",
+				"hongly@gmail.com",
+				"05/25/2025",
+				"9:20 PM",
 				5
 				);
 		mod.addAttribute("booked",booked);
@@ -48,11 +48,11 @@ public class MyController {
 	@GetMapping({"/reservation"})
 	public String reservation(Model mod) {
 		Booked booked=new Booked(
-				1,"Bo Polin",
+				1,"Hem SengHongly",
 				"087348554",
-				"bopolin3@gmail.com",
-				"11/25/2025",
-				"5:20 PM",
+				"hongly@gmail.com",
+				"05/25/2025",
+				"9:20 PM",
 				5
 				);
 		mod.addAttribute("booked",booked);

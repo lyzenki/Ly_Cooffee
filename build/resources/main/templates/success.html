@@ -1,340 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Confirmed - KOPPEE</title>
+    <div th:replace="~{base :: head}"></div>
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* Background */
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            background: linear-gradient(135deg, #2b2b2b, #1a1a1a);
         }
 
-        .container {
-            max-width: 500px;
-            width: 100%;
-            background: white;
+        .success-container {
+            max-width: 650px;
+            margin: 80px auto;
+            padding: 40px;
+            background: #ffffff;
             border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            animation: slideUp 0.6s ease-out;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 40px 30px;
-            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 0.7s ease-out;
             position: relative;
             overflow: hidden;
         }
 
-        .header::before {
-            content: '';
+        /* Gold Top Border */
+        .success-container::before {
+            content: "";
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: pulse 3s infinite;
+            top: 0;
+            left: 0;
+            height: 6px;
+            width: 100%;
+            background: linear-gradient(90deg, #d4a574, #c58940);
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.1); opacity: 0.5; }
-        }
-
-        .checkmark {
-            width: 80px;
-            height: 80px;
-            background: white;
+        /* Icon */
+        .success-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #d4a574, #c58940);
             border-radius: 50%;
             display: flex;
-            align-items: center;
+            margin: 0 auto;
             justify-content: center;
-            margin: 0 auto 20px;
-            position: relative;
-            animation: scaleIn 0.5s ease-out 0.2s both;
+            align-items: center;
+            font-size: 40px;
+            color: #fff;
+            box-shadow: 0px 12px 35px rgba(212, 165, 116, 0.5);
+            animation: popIn 0.5s ease-out;
         }
 
-        @keyframes scaleIn {
+        @keyframes popIn {
             from {
                 transform: scale(0);
-            }
-            to {
-                transform: scale(1);
+                opacity: 0;
             }
         }
 
-        .checkmark svg {
-            width: 40px;
-            height: 40px;
-            stroke: #667eea;
-            stroke-width: 3;
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            stroke-dasharray: 50;
-            stroke-dashoffset: 50;
-            animation: draw 0.5s ease-out 0.5s forwards;
-        }
-
-        @keyframes draw {
-            to {
-                stroke-dashoffset: 0;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
         }
 
-        .header h1 {
-            color: white;
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            position: relative;
-        }
-
-        .header p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 15px;
-            position: relative;
-        }
-
-        .content {
-            padding: 40px 30px;
-        }
-
-        .brand {
+        .success-title {
             text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .brand h2 {
-            font-size: 32px;
+            font-size: 2rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
+            margin-top: 25px;
+            color: #2c1b12;
         }
 
-        .details {
-            background: #f8f9ff;
+        .success-text {
+            text-align: center;
+            color: #6b5544;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #faf7f2;
+            padding: 25px;
             border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
+            border: 1px solid #eee2cf;
         }
 
-        .detail-row {
+        .info-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+            padding: 14px 0;
+            border-bottom: 1px solid #f0e6dc;
         }
 
-        .detail-row:last-child {
+        .info-item:last-child {
             border-bottom: none;
-            padding-bottom: 0;
         }
 
-        .detail-row:first-child {
-            padding-top: 0;
-        }
-
-        .detail-label {
-            font-size: 14px;
-            color: #64748b;
-            font-weight: 500;
-        }
-
-        .detail-value {
-            font-size: 15px;
-            color: #1e293b;
+        .info-label {
             font-weight: 600;
-            text-align: right;
+            color: #6b5544;
         }
 
+        .info-value {
+            font-weight: 600;
+            color: #2c1b12;
+        }
+
+        /* Status Badge */
         .status-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: linear-gradient(135deg, #28a745, #20c997);
+            padding: 8px 20px;
             color: white;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: 0px 6px 18px rgba(32, 201, 151, 0.3);
         }
 
-        .email-notice {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .email-notice svg {
-            width: 20px;
-            height: 20px;
-            stroke: #16a34a;
-            stroke-width: 2;
-            fill: none;
-            flex-shrink: 0;
-        }
-
-        .email-notice p {
-            font-size: 14px;
-            color: #166534;
-            margin: 0;
-        }
-
-        .buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .btn {
-            padding: 14px 24px;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 600;
+        /* Buttons */
+        .btn-custom {
+            padding: 14px 28px;
+            border-radius: 50px;
             text-decoration: none;
-            text-align: center;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            display: inline-block;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .btn-gold {
+            background: linear-gradient(135deg, #d4a574, #c58940);
             color: white;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
-        }
-
-        .btn-secondary:hover {
-            background: #f8f9ff;
+        .btn-gold:hover {
+            background: linear-gradient(135deg, #bf8238, #a96e31);
             transform: translateY(-2px);
         }
 
-        @media (max-width: 480px) {
-            .container {
-                border-radius: 16px;
+        .btn-outline {
+            border: 2px solid #d4a574;
+            color: #6b5544;
+        }
+
+        .btn-outline:hover {
+            background: #d4a574;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .actions {
+            margin-top: 40px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 600px) {
+            .success-container {
+                margin: 30px 10px;
+                padding: 25px;
             }
 
-            .header {
-                padding: 30px 20px;
-            }
-
-            .content {
-                padding: 30px 20px;
-            }
-
-            .buttons {
-                grid-template-columns: 1fr;
+            .actions a {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="checkmark">
-                <svg viewBox="0 0 52 52">
-                    <path d="M14 27l10 10 18-18"/>
-                </svg>
-            </div>
-            <h1>Booking Confirmed!</h1>
-            <p>We look forward to serving you</p>
-        </div>
 
-        <div class="content">
-            <div class="brand">
-                <h2>KOPPEE</h2>
-            </div>
-
-            <div class="details">
-                <div class="detail-row">
-                    <span class="detail-label">Name</span>
-                    <span class="detail-value">Bo Polin</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Phone</span>
-                    <span class="detail-value">087348554</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Email</span>
-                    <span class="detail-value">bopolin3@gmail.com</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Date</span>
-                    <span class="detail-value">11/26/2025</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Time</span>
-                    <span class="detail-value">5:20 PM</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Persons</span>
-                    <span class="detail-value">5 Person(s)</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Status</span>
-                    <span class="status-badge">Confirmed</span>
-                </div>
-            </div>
-
-            <div class="email-notice">
-                <svg viewBox="0 0 24 24">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                    <polyline points="22,6 12,13 2,6"/>
-                </svg>
-                <p>A confirmation email has been sent to your inbox</p>
-            </div>
-
-            <div class="buttons">
-                <a href="#" class="btn btn-primary">View Menu</a>
-                <a href="#" class="btn btn-secondary">Back to Home</a>
-            </div>
-        </div>
+<div class="success-container">
+    
+    <div class="success-icon">
+        <i class="fa fa-check"></i>
     </div>
+
+    <h1 class="success-title">Booking Confirmed</h1>
+    <p class="success-text">Thank you for your reservation! We look forward to serving you at KOPPEE.</p>
+
+    <!-- Booking Info -->
+    <div class="info-box" th:object="${booked}">
+
+        <div class="info-item">
+            <span class="info-label">Name</span>
+            <span class="info-value" th:text="*{name}"></span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">Phone</span>
+            <span class="info-value" th:text="*{phonenumber}"></span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">Email</span>
+            <span class="info-value" th:text="*{email}"></span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">Date</span>
+            <span class="info-value" th:text="*{date}"></span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">Time</span>
+            <span class="info-value" th:text="*{time}"></span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">Persons</span>
+            <span class="info-value" th:text="*{person} + ' Person(s)'"></span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">Status</span>
+            <span class="info-value">
+                <span class="status-badge">Confirmed</span>
+            </span>
+        </div>
+
+    </div>
+
+    <!-- Buttons -->
+    <div class="actions">
+        <a th:href="@{/home}" class="btn-custom btn-gold">
+            <i class="fa fa-home"></i> Home
+        </a>
+
+        <a th:href="@{/menu}" class="btn-custom btn-outline">
+            <i class="fa fa-utensils"></i> View Menu
+        </a>
+    </div>
+
+</div>
+
 </body>
 </html>

@@ -1,245 +1,153 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org">
 
-<head>
-    <div th:replace="~{base :: head}"></div>
+<head th:replace="~{base :: head}">
 
-    <style>
-        /* Background */
-        body {
-            background: linear-gradient(135deg, #2b2b2b, #1a1a1a);
-        }
-
-        .success-container {
-            max-width: 650px;
-            margin: 80px auto;
-            padding: 40px;
-            background: #ffffff;
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-            animation: fadeIn 0.7s ease-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Gold Top Border */
-        .success-container::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 6px;
-            width: 100%;
-            background: linear-gradient(90deg, #d4a574, #c58940);
-        }
-
-        /* Icon */
-        .success-icon {
-            width: 90px;
-            height: 90px;
-            background: linear-gradient(135deg, #d4a574, #c58940);
-            border-radius: 50%;
-            display: flex;
-            margin: 0 auto;
-            justify-content: center;
-            align-items: center;
-            font-size: 40px;
-            color: #fff;
-            box-shadow: 0px 12px 35px rgba(212, 165, 116, 0.5);
-            animation: popIn 0.5s ease-out;
-        }
-
-        @keyframes popIn {
-            from {
-                transform: scale(0);
-                opacity: 0;
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-        }
-
-        .success-title {
-            text-align: center;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-top: 25px;
-            color: #2c1b12;
-        }
-
-        .success-text {
-            text-align: center;
-            color: #6b5544;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-
-        /* Info Box */
-        .info-box {
-            background: #faf7f2;
-            padding: 25px;
-            border-radius: 16px;
-            border: 1px solid #eee2cf;
-        }
-
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 14px 0;
-            border-bottom: 1px solid #f0e6dc;
-        }
-
-        .info-item:last-child {
-            border-bottom: none;
-        }
-
-        .info-label {
-            font-weight: 600;
-            color: #6b5544;
-        }
-
-        .info-value {
-            font-weight: 600;
-            color: #2c1b12;
-        }
-
-        /* Status Badge */
-        .status-badge {
-            background: linear-gradient(135deg, #28a745, #20c997);
-            padding: 8px 20px;
-            color: white;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            box-shadow: 0px 6px 18px rgba(32, 201, 151, 0.3);
-        }
-
-        /* Buttons */
-        .btn-custom {
-            padding: 14px 28px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-gold {
-            background: linear-gradient(135deg, #d4a574, #c58940);
-            color: white;
-        }
-
-        .btn-gold:hover {
-            background: linear-gradient(135deg, #bf8238, #a96e31);
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            border: 2px solid #d4a574;
-            color: #6b5544;
-        }
-
-        .btn-outline:hover {
-            background: #d4a574;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .actions {
-            margin-top: 40px;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        @media (max-width: 600px) {
-            .success-container {
-                margin: 30px 10px;
-                padding: 25px;
-            }
-
-            .actions a {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-    </style>
 </head>
+<style>
 
+.receipt-card {
+    font-family: 'Poppins', sans-serif;
+    border: 2px dashed #28a745;
+    background: #ffffff;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: slideUp 0.9s ease-out forwards;
+}
+
+
+.animate-check {
+    animation: glow 1.5s ease-in-out 0.3s forwards;
+    opacity: 0;
+}
+
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1.2s ease-in-out forwards;
+    animation-delay: 0.5s;
+}
+
+.fade-in-delayed {
+    opacity: 0;
+    animation: fadeIn 1.3s ease-in-out forwards;
+    animation-delay: 1s;
+}
+
+
+.receipt-body div:hover {
+    background-color: #f8f9fa;
+    transition: 0.3s;
+}
+
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes glow {
+    0% { opacity: 0; text-shadow: none; }
+    100% { 
+        opacity: 1; 
+        text-shadow: 0 0 15px rgba(40, 167, 69, 0.7);
+    }
+}
+.btn-no-radius {
+    border-radius: 0 ;
+}
+
+
+</style>
 <body>
+  <!-- Navbar Start -->
+  <div th:replace="~{base :: base}"></div>
 
-<div class="success-container">
-    
-    <div class="success-icon">
-        <i class="fa fa-check"></i>
+  <!-- Navbar End -->
+
+
+  <!-- Page Header Start -->
+  <div th:replace="~{base :: header(text='Booked Success')}"></div>
+
+  <!-- Page Header End -->
+
+
+  <!-- Success Start -->
+  <div class="container-fluid py-5">
+    <div class="container d-flex justify-content-center">
+      <div class="col-lg-5">
+
+        <div class="receipt-card p-4 shadow-lg rounded-4 bg-white">
+
+          <h3 class="text-center mb-3 text-success fw-bold animate-check">
+            ✔️ Booking Successful</h3>
+
+          <h5 class="text-center mb-4">
+            Thank you!, <span th:text="${booked.name}"></span>
+          </h5>
+
+          <!-- Receipt body -->
+          <div class="receipt-body">
+
+            <div class="d-flex justify-content-between border-bottom py-2">
+              <span class="fw-bold">Phone : </span> <span
+                th:text="${booked.phoneNumber}"></span>
+            </div>
+
+            <div class="d-flex justify-content-between border-bottom py-2">
+              <span class="fw-bold">Email : </span> <span
+                th:text="${booked.email}"></span>
+            </div>
+
+            <div class="d-flex justify-content-between border-bottom py-2">
+              <span class="fw-bold">Date : </span> <span
+                th:text="${booked.date}"></span>
+            </div>
+
+            <div class="d-flex justify-content-between border-bottom py-2">
+              <span class="fw-bold">Time : </span> <span
+                th:text="${booked.time}"></span>
+            </div>
+
+            <div class="d-flex justify-content-between border-bottom py-2">
+              <span class="fw-bold">Person : </span> <span
+                th:text="${booked.person}"></span>
+            </div>
+
+          </div>
+
+          <!-- Footer -->
+          <div class="text-center mt-4">
+            <a href="/" class="btn btn-primary btn-no-radius">Back to Home</a>
+
+          </div>
+
+        </div>
+      </div>
     </div>
+  </div>
+  <!-- Success End -->
 
-    <h1 class="success-title">Booking Confirmed</h1>
-    <p class="success-text">Thank you for your reservation! We look forward to serving you at KOPPEE.</p>
 
-    <!-- Booking Info -->
-    <div class="info-box" th:object="${booked}">
+  <!-- Footer Start -->
+  <div th:replace="~{base :: footer}"></div>
+  <!-- Footer End -->
+  <div th:replace="~{base :: script}"></div>
 
-        <div class="info-item">
-            <span class="info-label">Name</span>
-            <span class="info-value" th:text="*{name}"></span>
-        </div>
-
-        <div class="info-item">
-            <span class="info-label">Phone</span>
-            <span class="info-value" th:text="*{phonenumber}"></span>
-        </div>
-
-        <div class="info-item">
-            <span class="info-label">Email</span>
-            <span class="info-value" th:text="*{email}"></span>
-        </div>
-
-        <div class="info-item">
-            <span class="info-label">Date</span>
-            <span class="info-value" th:text="*{date}"></span>
-        </div>
-
-        <div class="info-item">
-            <span class="info-label">Time</span>
-            <span class="info-value" th:text="*{time}"></span>
-        </div>
-
-        <div class="info-item">
-            <span class="info-label">Persons</span>
-            <span class="info-value" th:text="*{person} + ' Person(s)'"></span>
-        </div>
-
-        <div class="info-item">
-            <span class="info-label">Status</span>
-            <span class="info-value">
-                <span class="status-badge">Confirmed</span>
-            </span>
-        </div>
-
-    </div>
-
-    <!-- Buttons -->
-    <div class="actions">
-        <a th:href="@{/home}" class="btn-custom btn-gold">
-            <i class="fa fa-home"></i> Home
-        </a>
-
-        <a th:href="@{/menu}" class="btn-custom btn-outline">
-            <i class="fa fa-utensils"></i> View Menu
-        </a>
-    </div>
-
-</div>
 
 </body>
+
 </html>

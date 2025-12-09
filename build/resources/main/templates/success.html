@@ -1,112 +1,144 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <title>Booking Success</title>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <style>
-/* Your CSS remains same */
-.receipt-card {
-    font-family: 'Poppins', sans-serif;
-    border: 2px dashed #28a745;
-    background: #ffffff;
-    opacity: 0;
-    transform: translateY(40px);
-    animation: slideUp 0.9s ease-out forwards;
-}
+    .receipt-card {
+        font-family: 'Poppins', sans-serif;
+        border: 2px dashed #28a745;
+        background: #ffffff;
+        opacity: 0;
+        transform: translateY(40px);
+        animation: slideUp 0.9s ease-out forwards;
+    }
 
-.animate-check { animation: glow 1.5s ease-in-out 0.3s forwards; opacity: 0; }
-.fade-in { opacity: 0; animation: fadeIn 1.2s ease-in-out forwards; animation-delay: 0.5s; }
-.fade-in-delayed { opacity: 0; animation: fadeIn 1.3s ease-in-out forwards; animation-delay: 1s; }
+    .animate-check {
+        animation: glow 1.5s ease-in-out 0.3s forwards;
+        opacity: 0;
+    }
 
-.receipt-body div:hover { background-color: #f8f9fa; transition: 0.3s; }
+    .fade-in {
+        opacity: 0;
+        animation: fadeIn 1.2s ease-in-out forwards;
+        animation-delay: 0.5s;
+    }
 
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+    .fade-in-delayed {
+        opacity: 0;
+        animation: fadeIn 1.3s ease-in-out forwards;
+        animation-delay: 1s;
+    }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .receipt-body div:hover {
+        background-color: #f8f9fa;
+        transition: 0.3s;
+    }
 
-@keyframes glow {
-    0% { opacity: 0; text-shadow: none; }
-    100% { opacity: 1; text-shadow: 0 0 15px rgba(40, 167, 69, 0.7); }
-}
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
-.btn-no-radius { border-radius: 0; }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes glow {
+        0% { opacity: 0; text-shadow: none; }
+        100% {
+            opacity: 1;
+            text-shadow: 0 0 15px rgba(40, 167, 69, 0.7);
+        }
+    }
+
+    .btn-no-radius {
+        border-radius: 0;
+    }
 </style>
 
 <body>
 
-<!-- Navbar -->
-<div th:replace="~{base :: navbar}"></div>
+    <!-- Navbar -->
+    <div th:replace="~{base :: navbar}"></div>
 
-<!-- Page Header (fixed) -->
-<div th:replace="~{base :: header(text='Booked Success')}"></div>
+    <!-- Page Header (Reusing booked header as title) -->
+    <div th:replace="~{base :: booked(text='Booked Success')}"></div>
 
-<!-- Success Content -->
-<div class="container-fluid py-5">
-    <div class="container d-flex justify-content-center">
-        <div class="col-lg-5">
+    <!-- Success Content -->
+    <div class="container-fluid py-5">
+        <div class="container d-flex justify-content-center">
+            <div class="col-lg-5">
 
-            <div class="receipt-card p-4 shadow-lg rounded-4 bg-white">
+                <div class="receipt-card p-4 shadow-lg rounded-4 bg-white">
 
-                <h3 class="text-center mb-3 text-success fw-bold animate-check">
-                    ✔️ Booking Successful
-                </h3>
+                    <h3 class="text-center mb-3 text-success fw-bold animate-check">
+                        ✔️ Booking Successful
+                    </h3>
 
-                <h5 class="text-center mb-4">
-                    Thank you!, <span th:text="${booked.name}"></span>
-                </h5>
+                    <h5 class="text-center mb-4">
+                        Thank you!, <span th:text="${booked.name}"></span>
+                    </h5>
 
-                <div class="receipt-body">
+                    <!-- Receipt Details -->
+                    <div class="receipt-body">
 
-                    <div class="d-flex justify-content-between border-bottom py-2">
-                        <span class="fw-bold">Phone :</span>
-                        <span th:text="${booked.phonenumber}"></span>
+                        <div class="d-flex justify-content-between border-bottom py-2">
+                            <span class="fw-bold">Phone :</span>
+                            <span th:text="${booked.phonenumber}"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between border-bottom py-2">
+                            <span class="fw-bold">Email :</span>
+                            <span th:text="${booked.email}"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between border-bottom py-2">
+                            <span class="fw-bold">Date :</span>
+                            <span th:text="${booked.date}"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between border-bottom py-2">
+                            <span class="fw-bold">Time :</span>
+                            <span th:text="${booked.time}"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between border-bottom py-2">
+                            <span class="fw-bold">Person :</span>
+                            <span th:text="${booked.person}"></span>
+                        </div>
+
                     </div>
 
-                    <div class="d-flex justify-content-between border-bottom py-2">
-                        <span class="fw-bold">Email :</span>
-                        <span th:text="${booked.email}"></span>
+                    <!-- Button -->
+                    <div class="text-center mt-4">
+                        <a href="/" class="btn btn-primary btn-no-radius">Back to Home</a>
                     </div>
 
-                    <div class="d-flex justify-content-between border-bottom py-2">
-                        <span class="fw-bold">Date :</span>
-                        <span th:text="${booked.date}"></span>
-                    </div>
-
-                    <div class="d-flex justify-content-between border-bottom py-2">
-                        <span class="fw-bold">Time :</span>
-                        <span th:text="${booked.time}"></span>
-                    </div>
-
-                    <div class="d-flex justify-content-between border-bottom py-2">
-                        <span class="fw-bold">Person :</span>
-                        <span th:text="${booked.person}"></span>
-                    </div>
-
-                </div>
-
-                <div class="text-center mt-4">
-                    <a href="/" class="btn btn-primary btn-no-radius">Back to Home</a>
                 </div>
 
             </div>
         </div>
     </div>
-</div>
 
-<!-- Footer -->
-<div th:replace="~{base :: footer}"></div>
-<div th:replace="~{base :: script}"></div>
+    <!-- Footer -->
+    <div th:replace="~{base :: footer}"></div>
+
+    <!-- Scripts -->
+    <div th:replace="~{base :: script}"></div>
 
 </body>
 </html>

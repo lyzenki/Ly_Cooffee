@@ -1,13 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org">
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 <head>
     <div th:replace="~{base :: head}"></div>
-    
     <style>
-        /* Booking Success Page Styles */
         body {
             font-family: 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #f8f4ef 0%, #fdfbf7 100%);
@@ -178,4 +173,46 @@
         }
 
         .btn-primary-custom:hover {
-            background: linear-gradient(135deg, #c58940 0%, #b07835 100
+            background: linear-gradient(135deg, #c58940 0%, #b07835 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="booking-success-wrapper">
+        <div class="success-card">
+            <div class="success-icon-wrapper">
+                <div class="success-icon">✔</div>
+            </div>
+
+            <div class="success-header">
+                <h2 class="success-title">Booking Successful!</h2>
+                <p class="success-subtitle">Thank you for choosing us. Your booking details are shown below.</p>
+            </div>
+
+            <div class="booking-info-card">
+                <div class="info-item">
+                    <div class="info-label"><i class="fa fa-calendar"></i> Date</div>
+                    <div class="info-value">12 Jan 2025</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label"><i class="fa fa-clock"></i> Time</div>
+                    <div class="info-value">2:00 PM</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label"><i class="fa fa-user"></i> Customer</div>
+                    <div class="info-value highlight">John Doe</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label"><i class="fa fa-check-circle"></i> Status</div>
+                    <div class="info-value"><span class="status-badge">Confirmed</span></div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a href="#" class="btn-custom btn-primary-custom">View Booking</a>
+                <a href="#" class="btn-custom" style="background:#f0e6dc; color:#5c4033;">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
